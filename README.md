@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/amenezes/docker-pandas.svg?branch=master)](https://travis-ci.org/amenezes/docker-pandas)
+
 # docker-pandas
 
 A docker image based on python 3.7.0-alpine and:
