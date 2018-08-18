@@ -1,23 +1,30 @@
 language: python
-sudo: false
 
 services:
   - docker
 
-install:
-  - echo "fake job"
-
-jobs:
-  include:
-    - stage: docker build images
-      env:
-        - IMAGE_TAG=0.23.4
-        - IMAGE_NAME=pandas
-    - script: 
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
-      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
-    - script: 
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
-      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
+script:
+  - echo "build image with python 3.7.0"
+  - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
+  - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
+  - echo "build image with python 3.6.6"
+  - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
+  - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
+#jobs:
+#  include:
+#    - stage: docker build images
+#      env:
+#        - IMAGE_TAG=0.23.4
+#        - IMAGE_NAME=pandas
+#    - script: 
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
+#      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
+#    - script: 
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
+#      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
+env:
+  global:
+   - IMAGE_TAG=0.23.4
+   - IMAGE_NAME=pandas
