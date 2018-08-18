@@ -6,9 +6,16 @@ services:
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-script:
-  - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
-  - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
+jobs:
+  include:
+    - stage: build base image with python-3.7.0
+    - script:
+      - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
+      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
+    - stage: build base image with python-3.6.6
+    - script:
+      - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
+      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
   
 env:
   global:
