@@ -1,8 +1,4 @@
-sudo: true
-dist: trusty
-
-services:
-  - docker
+sudo: false
 
 jobs:
   include:
