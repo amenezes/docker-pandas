@@ -9,10 +9,10 @@ before_script:
 script:
   - echo "build image with python 3.7.0"
   - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
-  - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
+  - docker image push amenezes/$IMAGE_NAME:$IMAGE_TAG
   - echo "build image with python 3.6.6"
   - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
-  - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
+  - docker image push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
 #jobs:
 #  include:
 #    - stage: docker build images
