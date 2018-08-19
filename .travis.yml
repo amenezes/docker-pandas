@@ -3,6 +3,9 @@ language: python
 services:
   - docker
 
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 script:
   - echo "build image with python 3.7.0"
   - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
@@ -16,11 +19,11 @@ script:
 #      env:
 #        - IMAGE_TAG=0.23.4
 #        - IMAGE_NAME=pandas
-#    - script: 
+#    - script:
 #      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #      - docker image build -t amenezes/$IMAGE_NAME:$IMAGE_TAG .
 #      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG
-#    - script: 
+#    - script:
 #      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #      - docker image build -f Dockerfile.python3.6.6 -t amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6 .
 #      - docker push amenezes/$IMAGE_NAME:$IMAGE_TAG-python3.6
